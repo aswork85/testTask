@@ -1,4 +1,13 @@
 // in this code I use ReactBootstrap 
+/*
+ * AddSubdivision, DeleteSubdivision, UpdateSubdivision, AllSubdivision  - it's buttons
+ * when you click to button, you make an appropriate request to the server
+ * 
+ * for a exemple, when you click "AddSubdivision", you recieve all Subdivisions in the database table
+ * when you click "pdateSubdivision", you will see modal window for updating. After Submit, all data send to server
+ */
+
+
 
 // modal window "Add Subdivision"
 window.AddSubdivision = React.createClass({
@@ -14,8 +23,6 @@ window.AddSubdivision = React.createClass({
     sent: function(){
         var code = this.refs.addSubCode.value;
         var name = this.refs.addSubName.value;
-               
-        
         
         axios.post("http://127.0.0.1:8888/addSubdivision", {
             code : code,
@@ -43,8 +50,8 @@ window.AddSubdivision = React.createClass({
                     </Modal.Header>
 
                     <Modal.Body>
-                        <span>Code : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" placeholder=" &nbsp;code" ref="addSubCode" /><br/>
-                        <span>Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="text" placeholder=" &nbsp;name" ref="addSubName" /><br/>   
+                        <span>Code : &nbsp;</span><input type="text" placeholder=" &nbsp;code" ref="addSubCode" /><br/>
+                        <span>Name : &nbsp;</span><input type="text" placeholder=" &nbsp;name" ref="addSubName" /><br/>   
                     </Modal.Body>
 
                     <Modal.Footer>
@@ -72,8 +79,6 @@ window.DeleteSubdivision = React.createClass({
         for(var i=0;i<params.length;i++){
             if (params[i].code){var code = params[i].code;};
         };
-        
-        
         axios.post("http://127.0.0.1:8888/deleteSubdivision", {code : code} )
                 .then(
                     function(){
@@ -139,7 +144,6 @@ window.UpdateSubdivision = React.createClass({
         var newName = this.refs.updateSubName.value;
         
         this.hideModal();
-        
          axios.post("http://127.0.0.1:8888/updateSubdivision", {code : code, newName : newName} )
                 .then(
                     function(){
@@ -168,7 +172,7 @@ window.UpdateSubdivision = React.createClass({
                     </Modal.Header>
 
                     <Modal.Body>
-                        <span>Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span>Name : &nbsp;</span>
                         <input  type="text" defaultValue={name} ref="updateSubName" /><br/>  
                     </Modal.Body>
 
@@ -207,7 +211,6 @@ window.SubBody = React.createClass({
         // data from server
         return {subList: []};     },
     componentDidMount: function(){
-        
         axios.get("http://127.0.0.1:8888/allSubdivisions")
                 .then(
                     function(dataFromServer){
